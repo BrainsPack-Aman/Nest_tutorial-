@@ -7,7 +7,7 @@ export class MessageServices{
         //Service is creating its own dependences
         //do no use this in real apps
 
-        this.messageRepo = new MessageServices();
+        this.messageRepo = new MessageRepository();
     }
 
     findOne(id:string){
