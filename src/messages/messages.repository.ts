@@ -1,7 +1,7 @@
 import { writeFile } from "fs/promises";
 import { readFile } from "fs/promises";
 
-export class messageRepository{
+export class MessageRepository{
 
     async findOne(id:string){
       
