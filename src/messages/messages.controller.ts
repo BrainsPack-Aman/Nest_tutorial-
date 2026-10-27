@@ -1,16 +1,13 @@
-import { Controller, Get, Post ,Body , Param , NotFoundException} from '@nestjs/common';
+import { Controller, Get, Post ,Body , Param , NotFoundException , BadRequestException} from '@nestjs/common';
 import { CreateMessageDto } from './dtos/create-message.dtos.js';
 import { MessageServices } from './messages.service.js';
 
 @Controller('messages')
 export class MessagesController {
-    messageService : MessageServices
+   
+   constructor(public messageService : MessageServices){}
 
-    //do not do this in real app (will refactor it to dependency injection later)
 
-    constructor(){
-        this.messageService = new MessageServices();
-    }
 
     @Get()
     listMessages(){
@@ -19,6 +16,10 @@ export class MessagesController {
     
     @Post()
     createMessage(@Body() body : CreateMessageDto){
+
+      if (!body.content || body.content.trim() === "") {
+         throw new BadRequestException("Message content cannot be empty"); 
+      }
      
        return this.messageService.create(body.content);
 
